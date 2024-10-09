@@ -63,5 +63,23 @@ public class CreditController {
 					  HttpStatus.NOT_FOUND, "Credit not found for id: "+id);
 		}
 	}
+	
+	// new requirement: Movie-Credits: return all credits for a movie
+	@GetMapping("/movie-credits/{movieId}")
+	public List<Credit> getCreditsForMovie(@PathVariable int movieId) {
+		//return creditRepo.findBy(null, null);
+		return creditRepo.findByMovieId(movieId);
+	}
+	
+	// new requirement: Actor-Filmography: return all credits for an actor
+	@GetMapping("/actor-credits/{actorId}")
+	public List<Credit> getCreditsForActor(@PathVariable int actorId) {
+		return creditRepo.findByActorId(actorId);
+	}
+	
+	
+	
+	
+	
 
 }
