@@ -1,5 +1,6 @@
 package com.bmdb.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.bmdb.db.CreditRepo;
 import com.bmdb.model.Credit;
+import com.bmdb.model.CreditDTO;
 
 @CrossOrigin
 @RestController
@@ -19,11 +21,23 @@ public class CreditController {
 	@Autowired
 	private CreditRepo creditRepo;
 
+	@GetMapping("/dto")
+	public List<CreditDTO> getAllCreditDTOs() {
+		List<CreditDTO> creditDTOs = new ArrayList<>();
+		List<Credit> credits = creditRepo.findAll();
+		for (Credit c: credits) {
+			CreditDTO cdto = new CreditDTO(c.getId(), c.getMovie().getId(), 
+					c.getActor().getId(), c.getRole());
+			creditDTOs.add(cdto);
+		}
+		return creditDTOs;
+	}
+
 	@GetMapping("/")
 	public List<Credit> getAllCredits() {
 		return creditRepo.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
 	public Credit getCreditById(@PathVariable int id) {
 		Optional<Credit> c = creditRepo.findById(id);

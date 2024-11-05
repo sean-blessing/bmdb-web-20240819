@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.bmdb.db.MovieRepo;
 import com.bmdb.model.Movie;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/movies")
 public class MovieController {
@@ -84,7 +85,11 @@ public class MovieController {
 		}
 	}
 	
-	
+	// new requirement: by-rating-year: get movies for rating and year
+	@GetMapping("/by-rating-year/{rating}/{year}")
+	public List<Movie> get(@PathVariable String rating, @PathVariable int year) {
+		return movieRepo.findByRatingAndYear(rating, year);
+	}
 	
 	
 	

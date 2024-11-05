@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.bmdb.db.ActorRepo;
 import com.bmdb.model.Actor;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/actors")
 public class ActorController {
